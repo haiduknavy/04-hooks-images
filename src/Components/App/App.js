@@ -20,49 +20,28 @@ export default function App() {
     if (!inputQuerry) {
       return;
     }
-    if (page === 1) {
-      fetchGallery(inputQuerry, page)
-        .then((data) => data.hits)
-        .then((response) => {
-          if (response.length === 0) {
-            Notify.failure("Sorry, we couldn't find any matches", {
-              position: "center-center",
-              fontSize: "24px",
-              timeout: 2500,
-              width: "30%",
-            });
-            Loading.remove();
-          } else {
-            setGallery(response);
-            setStatus("resolved");
-          }
-        });
-    }
-    if (page > 1) {
-      setStatus("pending");
-
-      fetchGallery(inputQuerry, page)
-        .then((data) => data.hits)
-        .then((response) => {
-          if (response.length === 0) {
-            Notify.failure("Sorry, we couldn't find any matches", {
-              position: "center-center",
-              fontSize: "24px",
-              timeout: 2500,
-              width: "30%",
-            });
-            setStatus("idle");
-            Loading.remove();
-          } else {
-            setGallery((prevState) => [...prevState, ...response]);
-            setStatus("resolved");
-          }
-        });
-    }
+    setStatus("pending");
+    fetchGallery(inputQuerry, page)
+      .then((data) => data.hits)
+      .then((response) => {
+        if (response.length === 0) {
+          Notify.failure("Sorry, we couldn't find any matches", {
+            position: "center-center",
+            fontSize: "24px",
+            timeout: 2500,
+            width: "30%",
+          });
+          setStatus("idle");
+          Loading.remove();
+        }
+        setGallery((prevState) => [...prevState, ...response]);
+        setStatus("resolved");
+      });
   }, [page, inputQuerry]);
 
   const onSubmitForm = (inputQuerry) => {
     setInputQuerry(inputQuerry);
+    setGallery([]);
     setPage(1);
   };
 
@@ -71,7 +50,7 @@ export default function App() {
   };
 
   const FindmodalImg = (id, img, tags) => {
-    setModalImg({ id: id, img: img, tags: tags });
+    setModalImg({ id, img, tags });
   };
 
   const toggleModal = () => {
@@ -81,7 +60,7 @@ export default function App() {
   return (
     <AppWrap>
       <Searchbar onSubmit={onSubmitForm} />
-      {status === "pending" && Loading.pulse()}
+      {status === "pending" && Loading.dots()}
       {status === "resolved" && Loading.remove()}
       <ImageGallery
         response={gallery}
