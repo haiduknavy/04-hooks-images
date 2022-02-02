@@ -33,9 +33,10 @@ export default function App() {
           });
           setStatus("idle");
           Loading.remove();
+        } else {
+          setGallery((prevState) => [...prevState, ...response]);
+          setStatus("resolved");
         }
-        setGallery((prevState) => [...prevState, ...response]);
-        setStatus("resolved");
       });
   }, [page, inputQuerry]);
 

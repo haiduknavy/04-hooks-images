@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/goit-react-hw-04-hooks-images/static/js/main.e4c7779f.js",
+    "main.js": "/goit-react-hw-04-hooks-images/static/js/main.0dcb5faa.js",
     "index.html": "/goit-react-hw-04-hooks-images/index.html",
-    "main.e4c7779f.js.map": "/goit-react-hw-04-hooks-images/static/js/main.e4c7779f.js.map"
+    "main.0dcb5faa.js.map": "/goit-react-hw-04-hooks-images/static/js/main.0dcb5faa.js.map"
   },
   "entrypoints": [
-    "static/js/main.e4c7779f.js"
+    "static/js/main.0dcb5faa.js"
   ]
 }
